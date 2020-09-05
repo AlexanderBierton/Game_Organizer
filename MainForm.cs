@@ -22,6 +22,7 @@ namespace Games_Organizer
             ImageList imgList = new ImageList();
             imgList.Images.Add(Image.FromFile("res/Folder_16x.png"));
             imgList.Images.Add(Image.FromFile("res/FolderOpen_16x.png"));
+            imgList.Images.Add(Image.FromFile("res/HardDrive_16x.png"));
 
             folderTreeView.ImageList = imgList;
         }
@@ -35,25 +36,99 @@ namespace Games_Organizer
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 string folderPath = folderBrowserDialog.SelectedPath;
-                string folderName = folderPath.Substring(folderPath.LastIndexOf('\\') + 1);
 
-                FolderTreeNode newNode = new FolderTreeNode(folderPath, folderName);
-                newNode.ImageIndex = 0;
-
-                folderTreeView.Focus();
-                folderTreeView.Nodes.Add(newNode);
+                FolderTreeNode newNode = BuildNodeTree(folderPath);
                 folderTreeView.SelectedNode = newNode;
             }
         }
 
+        private FolderTreeNode BuildNodeTree(string folderPath)
+        {
+            // If node is null then its a root node
+            string[] splitPath = folderPath.Split('\\');
+            TreeNode prevNode = null;
+            FolderTreeNode folderNode = null;
+
+            while (splitPath.Length > 0)
+            {
+                if (prevNode == null)
+                {
+                    TreeNode node = null;
+                    foreach (TreeNode rootNode in folderTreeView.Nodes)
+                    {
+                        if (rootNode.Name == splitPath[0])
+                        {
+                            node = rootNode;
+                            break;
+                        }
+                    }
+                    
+                    if (node == null)
+                    {
+                        node = new TreeNode(splitPath[0]);
+                        node.Name = splitPath[0];
+                        node.ImageIndex = 2;
+                        node.SelectedImageIndex = 2;
+                        folderTreeView.Nodes.Add(node);
+                    }
+
+                    splitPath = splitPath.Skip(1).ToArray();
+                    prevNode = node;
+                    continue;
+                }
+
+                if (splitPath.Length > 1)
+                {
+                    TreeNode[] existingNode = prevNode.Nodes.Find(splitPath[0], false);
+                    TreeNode node = null;
+
+                    if (existingNode.Length > 0)
+                    {
+                        node = existingNode[0];
+                    }
+                    else
+                    {
+                        node = new TreeNode(splitPath[0]);
+                        node.ImageIndex = 0;
+                        node.Name = splitPath[0];
+                        node.SelectedImageIndex = 0;
+                        prevNode.Nodes.Add(node);
+                    }
+                   
+                    splitPath = splitPath.Skip(1).ToArray();
+                    prevNode = node;
+                }
+                else
+                {
+                    FolderTreeNode node = new FolderTreeNode(folderPath, splitPath[0]);
+                    node.ImageIndex = 0;
+                    node.SelectedImageIndex = 0;
+                    node.Name = splitPath[0];
+                    prevNode.Nodes.Add(node);
+                    folderNode = node;
+                    splitPath = splitPath.Skip(1).ToArray();
+                }
+            }
+
+            return folderNode;
+        }
+
         private void afterNodeSelect(object sender, TreeViewEventArgs e)
         {
+            listView1.SuspendLayout();
+            listView1.Items.Clear();
+            updateToolStripState();
+
+            if (!(e.Node is FolderTreeNode))
+            {
+                listView1.ResumeLayout();
+                return;
+            }
+                
+
             FolderTreeNode folderNode = (FolderTreeNode) e.Node;
 
             DirectoryInfo folderDir = new DirectoryInfo(folderNode.FolderPath);
-
-            listView1.SuspendLayout();
-            listView1.Items.Clear();
 
             foreach (DirectoryInfo dir in folderDir.GetDirectories())
             {
@@ -68,6 +143,9 @@ namespace Games_Organizer
             }
 
             listView1.ResumeLayout();
+            
+
+            folderReaderWorker.RunWorkerAsync();
         }
 
         private void getSubItemInfo()
@@ -115,8 +193,6 @@ namespace Games_Organizer
             return size;
         }
 
-        
-
         private void onFolderReader(object sender, DoWorkEventArgs e)
         {
             if (listView1.InvokeRequired)
@@ -145,6 +221,13 @@ namespace Games_Organizer
         private void ReadFolder(object sender, EventArgs e)
         {
             folderReaderWorker.RunWorkerAsync();
+        }
+
+        private void updateToolStripState()
+        {
+            bool enabled = folderTreeView.SelectedNode != null && folderTreeView.SelectedNode is FolderTreeNode && folderTreeView.Focused;
+
+            removeFolderTool.Enabled = enabled;
         }
     }
 }

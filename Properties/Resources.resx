@@ -121,7 +121,16 @@
   <data name="FolderOpen_16x" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\res\FolderOpen_16x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AddFolder_16x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AddFolder_16x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Folder_16x" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\res\Folder_16x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeleteFolder_16x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeleteFolder_16x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HardDrive_16x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HardDrive_16x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

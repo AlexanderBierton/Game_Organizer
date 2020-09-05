@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ookii.Dialogs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0c15020868fd6249, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ookii.Dialogs.WindowsForms.1.0\lib\net35\Ookii.Dialogs.dll</HintPath>
+      <HintPath>.\Ookii.Dialogs.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -98,6 +98,20 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="res\Folder_16x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddFolder_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeleteFolder_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HardDrive_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="res\HardDrive_16x.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

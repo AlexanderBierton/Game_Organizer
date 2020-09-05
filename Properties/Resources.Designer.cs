@@ -63,6 +63,26 @@ namespace Games_Organizer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AddFolder_16x {
+            get {
+                object obj = ResourceManager.GetObject("AddFolder_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DeleteFolder_16x {
+            get {
+                object obj = ResourceManager.GetObject("DeleteFolder_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Folder_16x {
             get {
                 object obj = ResourceManager.GetObject("Folder_16x", resourceCulture);
@@ -76,6 +96,16 @@ namespace Games_Organizer.Properties {
         internal static System.Drawing.Bitmap FolderOpen_16x {
             get {
                 object obj = ResourceManager.GetObject("FolderOpen_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HardDrive_16x {
+            get {
+                object obj = ResourceManager.GetObject("HardDrive_16x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
