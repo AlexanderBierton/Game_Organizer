@@ -36,9 +36,9 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.folderTreeView = new System.Windows.Forms.TreeView();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.lblSortBy = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.folderReaderWorker = new System.ComponentModel.BackgroundWorker();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.addFolderToolstrip = new System.Windows.Forms.ToolStripButton();
@@ -110,7 +110,9 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.listView1);
+            this.splitContainer1.Panel2.Controls.Add(this.comboBox1);
+            this.splitContainer1.Panel2.Controls.Add(this.lblSortBy);
+            this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel1);
             this.splitContainer1.Size = new System.Drawing.Size(918, 469);
             this.splitContainer1.SplitterDistance = 250;
             this.splitContainer1.TabIndex = 1;
@@ -125,33 +127,35 @@
             this.folderTreeView.TabIndex = 0;
             this.folderTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.afterNodeSelect);
             // 
-            // listView1
+            // comboBox1
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colName,
-            this.colSize});
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(0, 0);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(664, 469);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(526, 8);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 2;
             // 
-            // colName
+            // lblSortBy
             // 
-            this.colName.Text = "Name";
-            this.colName.Width = 267;
+            this.lblSortBy.AutoSize = true;
+            this.lblSortBy.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSortBy.Location = new System.Drawing.Point(470, 10);
+            this.lblSortBy.Name = "lblSortBy";
+            this.lblSortBy.Size = new System.Drawing.Size(50, 17);
+            this.lblSortBy.TabIndex = 1;
+            this.lblSortBy.Text = "Sort by";
+            this.lblSortBy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // colSize
+            // flowLayoutPanel1
             // 
-            this.colSize.Text = "Size";
-            this.colSize.Width = 244;
-            // 
-            // folderReaderWorker
-            // 
-            this.folderReaderWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.onFolderReader);
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 35);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(658, 431);
+            this.flowLayoutPanel1.TabIndex = 0;
             // 
             // toolStrip1
             // 
@@ -202,6 +206,7 @@
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
@@ -221,13 +226,13 @@
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TreeView folderTreeView;
-        private System.Windows.Forms.ListView listView1;
-        public System.Windows.Forms.ColumnHeader colName;
-        private System.Windows.Forms.ColumnHeader colSize;
         private System.ComponentModel.BackgroundWorker folderReaderWorker;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton addFolderToolstrip;
         private System.Windows.Forms.ToolStripButton removeFolderTool;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label lblSortBy;
     }
 }
 

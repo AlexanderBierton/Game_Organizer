@@ -10,7 +10,7 @@ namespace Games_Organizer
     {
         public static string FormatBytes(long bytes)
         {
-            string[] Suffix = { "B", "KB", "MB", "GB" };
+            string[] Suffix = { "Bytes", "KB", "MB", "GB" };
             int i;
             double dblSByte = bytes;
             for (i = 0; i < Suffix.Length && bytes >= 1024; i++, bytes /= 1024)

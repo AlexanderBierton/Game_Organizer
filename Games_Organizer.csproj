@@ -53,6 +53,12 @@
     <Compile Include="FolderListItem.cs" />
     <Compile Include="FolderTreeNode.cs" />
     <Compile Include="GameFolder.cs" />
+    <Compile Include="GameFolderItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GameFolderItem.Designer.cs">
+      <DependentUpon>GameFolderItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameFolderTreeNode.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="MainForm.cs">
@@ -63,6 +69,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GameFolderItem.resx">
+      <DependentUpon>GameFolderItem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
