@@ -53,7 +53,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 53F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 57F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(545, 57);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
@@ -63,7 +63,7 @@
             this.imgFolderIcon.Location = new System.Drawing.Point(3, 3);
             this.imgFolderIcon.Name = "imgFolderIcon";
             this.imgFolderIcon.Size = new System.Drawing.Size(48, 51);
-            this.imgFolderIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.imgFolderIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imgFolderIcon.TabIndex = 0;
             this.imgFolderIcon.TabStop = false;
             // 

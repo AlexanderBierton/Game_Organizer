@@ -56,31 +56,35 @@ namespace Games_Organizer
 
         public void SetFolderIcon()
         {
-            if (this.folderImage == null)
-            {
-                MethodInvoker m = delegate
-                {
-                    DirectoryInfo info = new DirectoryInfo(this.folderPath);
-                    FileInfo[] files = info.GetFiles("*.exe");
-
-                    if (files.Length > 0)
-                        this.folderImage = Icon.ExtractAssociatedIcon(files[0].FullName).ToBitmap();
-                    else
-                        this.folderImage = Image.FromFile("res/Folder_16x.png");
-
-                    this.imgFolderIcon.Image = this.folderImage;
-                };
-
-                if (this.InvokeRequired)
-                    this.Invoke(m);
-                else
-                    m.Invoke();
-            }
-            else
+            if (this.folderImage != null)
             {
                 this.imgFolderIcon.Image = this.folderImage;
+                return;
             }
-            
+
+            MethodInvoker m = delegate
+            {
+                DirectoryInfo info = new DirectoryInfo(this.folderPath);
+                FileInfo[] files = info.GetFiles("*.exe");
+
+                if (files.Length > 0)
+                {
+                    this.folderImage = Icon.ExtractAssociatedIcon(files[0].FullName).ToBitmap();
+                    this.imgFolderIcon.SizeMode = PictureBoxSizeMode.CenterImage;
+                }
+                else
+                {
+                    this.folderImage = Games_Organizer.Properties.Resources.GameFolder;
+                    this.imgFolderIcon.SizeMode = PictureBoxSizeMode.CenterImage;
+                }
+
+                this.imgFolderIcon.Image = this.folderImage;
+            };
+
+            if (this.InvokeRequired)
+                this.Invoke(m);
+            else
+                m.Invoke();
         }
 
         public void SetFolderSize()

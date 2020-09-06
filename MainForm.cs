@@ -20,9 +20,10 @@ namespace Games_Organizer
             InitializeComponent();
 
             ImageList imgList = new ImageList();
-            imgList.Images.Add(Image.FromFile("res/Folder_16x.png"));
+            imgList.Images.Add(Properties.Resources.Folder);
             imgList.Images.Add(Image.FromFile("res/FolderOpen_16x.png"));
             imgList.Images.Add(Image.FromFile("res/HardDrive_16x.png"));
+            imgList.Images.Add(Properties.Resources.GameFolder);
 
             List<string> comboList = new List<string>();
             comboList.Add("Name");
@@ -108,8 +109,8 @@ namespace Games_Organizer
                 else
                 {
                     FolderTreeNode node = new FolderTreeNode(folderPath, splitPath[0]);
-                    node.ImageIndex = 0;
-                    node.SelectedImageIndex = 0;
+                    node.ImageIndex = 3;
+                    node.SelectedImageIndex = 3;
                     node.Name = splitPath[0];
                     prevNode.Nodes.Add(node);
                     folderNode = node;
@@ -122,6 +123,8 @@ namespace Games_Organizer
 
         private void afterNodeSelect(object sender, TreeViewEventArgs e)
         {
+            comboBox1.SelectedIndex = 0;
+
             flowLayoutPanel1.Controls.Clear();
             if (!(e.Node is FolderTreeNode))
             {
@@ -162,6 +165,29 @@ namespace Games_Organizer
             bool enabled = folderTreeView.SelectedNode != null && folderTreeView.SelectedNode is FolderTreeNode && folderTreeView.Focused;
 
             removeFolderTool.Enabled = enabled;
+        }
+
+        private void testClick(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void OnSortIndexChanged(object sender, EventArgs e)
+        {
+            if (folderTreeView.SelectedNode != null)
+            {
+                flowLayoutPanel1.Controls.Clear();
+
+                FolderTreeNode node = (FolderTreeNode)folderTreeView.SelectedNode;
+
+                GameFolderItemCollection test = node.SortFolders(comboBox1.SelectedItem.ToString());
+
+                foreach (GameFolderItem testItem in test)
+                {
+                    flowLayoutPanel1.Controls.Add(testItem);
+                }
+            }
+            
         }
     }
 }
