@@ -10,10 +10,12 @@ namespace Games_Organizer
     class FolderTreeNode : TreeNode
     {
         public string FolderPath = "";
+        public GameFolderItemCollection GameFolders;
 
         public FolderTreeNode (string folderPath, string folderName = "")
             :base()
         {
+            GameFolders = new GameFolderItemCollection();
             this.FolderPath = folderPath;
             if (String.IsNullOrEmpty(folderName))
                 this.Name = folderPath.Substring(folderPath.LastIndexOf('\\') + 1);
@@ -21,6 +23,7 @@ namespace Games_Organizer
                 this.Name = folderName;
 
             this.Text = folderName;
+            
         }
     }
 }

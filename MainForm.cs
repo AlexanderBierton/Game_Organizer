@@ -122,24 +122,33 @@ namespace Games_Organizer
 
         private void afterNodeSelect(object sender, TreeViewEventArgs e)
         {
+            flowLayoutPanel1.Controls.Clear();
             if (!(e.Node is FolderTreeNode))
             {
                 return;
             }
 
             FolderTreeNode folderNode = (FolderTreeNode)e.Node;
-
             DirectoryInfo folderDir = new DirectoryInfo(folderNode.FolderPath);
+
+            if (folderNode.GameFolders.Count > 0)
+            {
+                foreach (GameFolderItem gameFolder in folderNode.GameFolders)
+                {
+                    flowLayoutPanel1.Controls.Add(gameFolder);
+                }
+                return;
+            }
 
             foreach (DirectoryInfo dir in folderDir.GetDirectories())
             {
                 GameFolderItem item = new GameFolderItem(dir.FullName);
-
                 item.Parent = flowLayoutPanel1;
                 item.Width = item.Parent.Width - 30;
                 item.Anchor = (AnchorStyles.Left | AnchorStyles.Right);
 
                 flowLayoutPanel1.Controls.Add(item);
+                folderNode.GameFolders.Add(item);
             }
         }
 

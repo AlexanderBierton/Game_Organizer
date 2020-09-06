@@ -15,8 +15,8 @@ namespace Games_Organizer
     {
         public string folderPath = "";
         public string folderName = "";
-        public int folderSize = 0;
-        public Image folderImage;
+        public long folderSize = -1;
+        public Image folderImage = null;
 
         public GameFolderItem()
         {
@@ -56,38 +56,55 @@ namespace Games_Organizer
 
         public void SetFolderIcon()
         {
-            MethodInvoker m = delegate
+            if (this.folderImage == null)
             {
-                DirectoryInfo info = new DirectoryInfo(this.folderPath);
-                FileInfo[] files = info.GetFiles("*.exe");
+                MethodInvoker m = delegate
+                {
+                    DirectoryInfo info = new DirectoryInfo(this.folderPath);
+                    FileInfo[] files = info.GetFiles("*.exe");
 
-                if (files.Length > 0)
-                    this.imgFolderIcon.Image = Icon.ExtractAssociatedIcon(files[0].FullName).ToBitmap();
+                    if (files.Length > 0)
+                        this.folderImage = Icon.ExtractAssociatedIcon(files[0].FullName).ToBitmap();
+                    else
+                        this.folderImage = Image.FromFile("res/Folder_16x.png");
+
+                    this.imgFolderIcon.Image = this.folderImage;
+                };
+
+                if (this.InvokeRequired)
+                    this.Invoke(m);
                 else
-                    this.imgFolderIcon.Image = Image.FromFile("res/Folder_16x.png");
-            };
-
-            if (this.InvokeRequired)
-                this.Invoke(m);
+                    m.Invoke();
+            }
             else
-                m.Invoke();
+            {
+                this.imgFolderIcon.Image = this.folderImage;
+            }
+            
         }
 
         public void SetFolderSize()
         {
-            MethodInvoker m = delegate
+            if (this.folderSize == -1)
             {
-                DirectoryInfo info = new DirectoryInfo(this.folderPath);
+                MethodInvoker m = delegate
+                {
+                    DirectoryInfo info = new DirectoryInfo(this.folderPath);
 
-                long size = getFolderSize(info);
+                    this.folderSize = getFolderSize(info);
+                    this.lblFolderSize.Text = Helper.FormatBytes(this.folderSize);
+                };
 
-                this.lblFolderSize.Text = Helper.FormatBytes(size);
-            };
-
-            if (this.InvokeRequired)
-                this.Invoke(m);
+                if (this.InvokeRequired)
+                    this.Invoke(m);
+                else
+                    m.Invoke();
+            }
             else
-                m.Invoke();
+            {
+                this.lblFolderSize.Text = Helper.FormatBytes(this.folderSize);
+            }
+            
         }
 
         private long getFolderSize(DirectoryInfo folderPath)

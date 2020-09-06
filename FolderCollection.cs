@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Games_Organizer
 {
-    class GameFolderCollection : List<GameFolder>
+    class GameFolderItemCollection : List<GameFolderItem>
     {
     }
 }

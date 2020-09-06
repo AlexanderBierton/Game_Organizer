@@ -9,7 +9,7 @@ namespace Games_Organizer
 {
     class GameFolderTreeNode : TreeNode
     {
-        GameFolderCollection folders;
+        GameFolderItemCollection folders;
 
         public GameFolderTreeNode(string FolderName):
             base (FolderName)
