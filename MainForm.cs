@@ -24,6 +24,13 @@ namespace Games_Organizer
             imgList.Images.Add(Image.FromFile("res/FolderOpen_16x.png"));
             imgList.Images.Add(Image.FromFile("res/HardDrive_16x.png"));
 
+            List<string> comboList = new List<string>();
+            comboList.Add("Name");
+            comboList.Add("Size");
+
+            comboBox1.DataSource = comboList;
+            comboBox1.DisplayMember = "Name";
+
             folderTreeView.ImageList = imgList;
         }
 
@@ -115,106 +122,24 @@ namespace Games_Organizer
 
         private void afterNodeSelect(object sender, TreeViewEventArgs e)
         {
-            listView1.SuspendLayout();
-            listView1.Items.Clear();
-            updateToolStripState();
-
             if (!(e.Node is FolderTreeNode))
             {
-                listView1.ResumeLayout();
                 return;
             }
-                
 
-            FolderTreeNode folderNode = (FolderTreeNode) e.Node;
+            FolderTreeNode folderNode = (FolderTreeNode)e.Node;
 
             DirectoryInfo folderDir = new DirectoryInfo(folderNode.FolderPath);
 
             foreach (DirectoryInfo dir in folderDir.GetDirectories())
             {
-                FolderListItem item = new FolderListItem();
+                GameFolderItem item = new GameFolderItem(dir.FullName);
 
-                item.FolderPath = dir.FullName;
-                item.SubItems.Add(dir.Name);
-                item.SubItems[0].Text = dir.Name;
-                item.SubItems[1].Text = "";
+                item.Parent = flowLayoutPanel1;
+                item.Width = item.Parent.Width - 30;
+                item.Anchor = (AnchorStyles.Left | AnchorStyles.Right);
 
-                listView1.Items.Add(item);
-            }
-
-            listView1.ResumeLayout();
-            
-
-            folderReaderWorker.RunWorkerAsync();
-        }
-
-        private void getSubItemInfo()
-        {
-
-            foreach (FolderListItem folderItem in listView1.Items)
-            {
-                MethodInvoker m = delegate
-                {
-                    long size = getFolderSize(folderItem.FolderPath);
-
-                    folderItem.SubItems[1].Text = Helper.FormatBytes(size);
-                };
-
-                if (listView1.InvokeRequired)
-                    listView1.Invoke(m);
-                else
-                    m.Invoke();
-            }
-            
-        }
-
-        private long getFolderSize(string folderPath)
-        {
-            return getFolderSize(new DirectoryInfo(folderPath));
-        }
-
-        private long getFolderSize(DirectoryInfo folderPath)
-        {
-            long size = 0;
-
-            FileInfo[] files = folderPath.GetFiles();
-            DirectoryInfo[] directories = folderPath.GetDirectories();
-
-            foreach(FileInfo file in files)
-            {
-                size += file.Length;
-            }
-
-            foreach(DirectoryInfo dir in directories)
-            {
-                size += getFolderSize(dir);
-            }
-
-            return size;
-        }
-
-        private void onFolderReader(object sender, DoWorkEventArgs e)
-        {
-            if (listView1.InvokeRequired)
-            {
-                listView1.Invoke(new MethodInvoker(delegate
-                {
-                    foreach(FolderListItem folderItem in listView1.Items)
-                    {
-                        long size = getFolderSize(folderItem.FolderPath);
-
-                        folderItem.SubItems[1].Text = Helper.FormatBytes(size);
-                    }
-                }));
-            }
-            else
-            {
-                foreach (FolderListItem folderItem in listView1.Items)
-                {
-                    long size = getFolderSize(folderItem.FolderPath);
-
-                    folderItem.SubItems[1].Text = Helper.FormatBytes(size);
-                }
+                flowLayoutPanel1.Controls.Add(item);
             }
         }
 
