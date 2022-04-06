@@ -64,21 +64,29 @@ namespace Games_Organizer
 
             MethodInvoker m = delegate
             {
-                DirectoryInfo info = new DirectoryInfo(this.folderPath);
-                FileInfo[] files = info.GetFiles("*.exe");
-
-                if (files.Length > 0)
+                try
                 {
-                    this.folderImage = Icon.ExtractAssociatedIcon(files[0].FullName).ToBitmap();
-                    this.imgFolderIcon.SizeMode = PictureBoxSizeMode.CenterImage;
-                }
-                else
-                {
-                    this.folderImage = Games_Organizer.Properties.Resources.GameFolder;
-                    this.imgFolderIcon.SizeMode = PictureBoxSizeMode.CenterImage;
-                }
+                    DirectoryInfo info = new DirectoryInfo(this.folderPath);
+                    FileInfo[] files = info.GetFiles("*.exe");
 
-                this.imgFolderIcon.Image = this.folderImage;
+                    if (files.Length > 0)
+                    {
+                        this.folderImage = Icon.ExtractAssociatedIcon(files[0].FullName).ToBitmap();
+                        this.imgFolderIcon.SizeMode = PictureBoxSizeMode.CenterImage;
+                    }
+                    else
+                    {
+                        this.folderImage = Games_Organizer.Properties.Resources.GameFolder;
+                        this.imgFolderIcon.SizeMode = PictureBoxSizeMode.CenterImage;
+                    }
+
+                    this.imgFolderIcon.Image = this.folderImage;
+                }
+                catch(Exception e)
+                {
+
+                }
+                
             };
 
             if (this.InvokeRequired)
@@ -96,7 +104,7 @@ namespace Games_Organizer
                     DirectoryInfo info = new DirectoryInfo(this.folderPath);
 
                     this.folderSize = getFolderSize(info);
-                    this.lblFolderSize.Text = Helper.FormatBytes(this.folderSize);
+                    this.lblFolderSize.Text = (this.folderSize == -1 ? "N/A" : Helper.FormatBytes(this.folderSize));
                 };
 
                 if (this.InvokeRequired)
@@ -106,29 +114,36 @@ namespace Games_Organizer
             }
             else
             {
-                this.lblFolderSize.Text = Helper.FormatBytes(this.folderSize);
+                this.lblFolderSize.Text = (this.folderSize == -1 ? "N/A" : Helper.FormatBytes(this.folderSize));
             }
-            
         }
 
         private long getFolderSize(DirectoryInfo folderPath)
         {
-            long size = 0;
-
-            FileInfo[] files = folderPath.GetFiles();
-            DirectoryInfo[] directories = folderPath.GetDirectories();
-
-            foreach (FileInfo file in files)
+            try
             {
-                size += file.Length;
-            }
+                long size = 0;
 
-            foreach (DirectoryInfo dir in directories)
+                FileInfo[] files = folderPath.GetFiles();
+                DirectoryInfo[] directories = folderPath.GetDirectories();
+
+                foreach (FileInfo file in files)
+                {
+                    size += file.Length;
+                }
+
+                foreach (DirectoryInfo dir in directories)
+                {
+                    size += getFolderSize(dir);
+                }
+
+                return size;
+            }
+            catch (Exception e)
             {
-                size += getFolderSize(dir);
+                return -1;
             }
-
-            return size;
+            
         }
     }
 }
