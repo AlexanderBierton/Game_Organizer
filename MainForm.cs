@@ -130,7 +130,7 @@ namespace Games_Organizer
                         }
                         //long usedSpace = currentDrive.TotalSize - currentDrive.AvailableFreeSpace;
                         node.Name = splitPath[0];
-                        node.Text = splitPath[0] + String.Format(" ({0}/{1})", Helper.FormatBytes(currentDrive.AvailableFreeSpace), Helper.FormatBytes(currentDrive.TotalSize));
+                        node.Text = splitPath[0] + String.Format(" ({0} / {1})", Helper.FormatBytes(currentDrive.AvailableFreeSpace), Helper.FormatBytes(currentDrive.TotalSize));
                         node.Tag = splitPath[0];
                         node.ImageIndex = 2;
                         node.SelectedImageIndex = 2;
@@ -265,6 +265,22 @@ namespace Games_Organizer
             data += '|';
 
             File.WriteAllText(STATIC_SAVE, data);
+        }
+
+        private void expandAllNodes(object sender, EventArgs e)
+        {
+            foreach (TreeNode node in this.folderTreeView.Nodes)
+            {
+                node.ExpandAll();
+            }
+        }
+
+        private void collapseAll(object sender, EventArgs e)
+        {
+            foreach (TreeNode node in this.folderTreeView.Nodes)
+            {
+                node.Collapse();
+            }
         }
     }
 }

@@ -127,5 +127,11 @@
   <ItemGroup>
     <None Include="Resources\GameFolder.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CollapseAll_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ExpandAll_16x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
