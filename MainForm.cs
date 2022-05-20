@@ -200,18 +200,19 @@ namespace Games_Organizer
                     {
                         flowLayoutPanel1.Controls.Add(gameFolder);
                     }
-                    return;
                 }
-
-                foreach (DirectoryInfo dir in folderDir.GetDirectories())
+                else
                 {
-                    GameFolderItem item = new GameFolderItem(dir.FullName);
-                    item.Parent = flowLayoutPanel1;
-                    item.Width = item.Parent.Width - 30;
-                    item.Anchor = (AnchorStyles.Left | AnchorStyles.Right);
+                    foreach (DirectoryInfo dir in folderDir.GetDirectories())
+                    {
+                        GameFolderItem item = new GameFolderItem(dir.FullName);
+                        item.Parent = flowLayoutPanel1;
+                        item.Width = item.Parent.Width - 30;
+                        item.Anchor = (AnchorStyles.Left | AnchorStyles.Right);
 
-                    flowLayoutPanel1.Controls.Add(item);
-                    folderNode.GameFolders.Add(item);
+                        flowLayoutPanel1.Controls.Add(item);
+                        folderNode.GameFolders.Add(item);
+                    }
                 }
             }
         }
